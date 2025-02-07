@@ -2,8 +2,6 @@ package racing_prototype
 
 import "core:fmt"
 import rl "vendor:raylib"
-// import "core:strings"
-// import "core:strconv"
 
 car_position: rl.Vector3
 car_speed: f32
@@ -51,8 +49,10 @@ main :: proc() {
 
 update_car :: proc(dt: f32) {
 	if rl.IsKeyDown(.LEFT) || rl.IsKeyDown(.A) {
-		// rl.Vector2Rotate(car_dir, car_steer*dt)
 		car_dir = rl.Vector2Normalize(rl.Vector2Rotate(car_dir, car_steer*dt))
+	}
+	if rl.IsKeyDown(.RIGHT) || rl.IsKeyDown(.D) {
+		car_dir = rl.Vector2Normalize(rl.Vector2Rotate(car_dir, -car_steer*dt))
 	}
 	if rl.IsKeyDown(.UP) || rl.IsKeyDown(.W) {
 		car_speed += car_acceleration * dt
@@ -60,6 +60,5 @@ update_car :: proc(dt: f32) {
 	if rl.IsKeyDown(.DOWN) || rl.IsKeyDown(.S) {
 		car_speed -=  car_acceleration * dt
 	}
-	// car.heading = 
 	car_position.xz += car_dir * car_speed * dt
 }
